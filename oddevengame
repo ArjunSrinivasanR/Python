@@ -1,0 +1,150 @@
+import random
+#FUNCTION_CREATION
+#The first function is to decide who will BAT and who will BOWL
+
+def toss(chc, tss):
+
+    comp_choice = random.randint(1,6)
+    
+    if chc == 1 or chc == 2:    # 1 for ODD and 2 for EVEN 
+            if chc == 1 :
+                if ((tss+comp_choice)%2 != 0):
+                    return True
+                else:
+                    return False
+            
+            elif chc==2 :
+            
+                if ((tss+comp_choice)%2 == 0):
+                    return True
+                else:
+                    return False   
+
+
+
+
+#ENDING OF FUNCTION CREATION
+
+
+
+#Decide the toss
+chc = int(input("Enter 1 for ODD and 2 for EVEN: ")) #Odd or Even
+tss = int(input("Enter a no between 1 and 6: "))    #Deciding Toss
+
+toss_win = 0 # whether the user won or the PC won
+batorbowl = 0 #winner chooses to bat-1 or bowl-2
+
+if chc > 0 and chc < 3 and tss > 0 and tss < 7:  #to ensure a valid entry
+    if toss(chc,tss):
+        print("Congrats you have won the toss!")
+        toss_win = 1
+        batorbowl = int(input("Would you like to Bat(press 1) or Bowl(press 2) ?"))
+        if batorbowl == 1:
+            print("You have chosen to BAT")
+        elif batorbowl == 2:
+            print("You have chosen to BOWL")
+        else:
+            print("Invalid Entry, 1 - BAT and 2 - BOWL")
+    
+    else:
+        print("Oh no, you lost the toss !")
+        toss_win = 2
+        batorbowl = random.randint(1,2)
+        if batorbowl == 1:
+            print("The other player has chosen to BAT")
+        else:
+            print("The other player has chosen to BOWL")
+
+else:
+    print("INVALID ENTRY.CHOICES TO BE WITHIN GIVEN PARAMETERS")
+
+
+#the BATTER AND BOWLER have been decided with the above lines 
+#Depending on who is the BATSMAN and BOWLER, the case will be taken
+
+# USER chooses to BAT and computer BOWLS 
+# FIRST INNINGS
+if (toss_win == 1 and batorbowl == 1) or (toss_win == 2 and batorbowl == 2): #user won and chose to BAT
+    print("FIRST INNINGS")
+    tot_score = 0
+    user = int(input("Batsman hits: "))
+    comp_bowler = random.randint(1,6)
+
+    while(user != comp_bowler) and user>0 and user<7:
+        tot_score = tot_score + user
+        print(tot_score)
+        user = int(input("Batsman hits: "))
+        comp_bowler = random.randint(1,6)
+    else:
+        print("AAAAAND THE BATSMAN IS OUT.")
+        print(f"The batsman(user) is out! First Innings Score is {tot_score}")
+# SECOND INNINGS
+    print("SECOND INNINGS")
+    print(f"The Computer(BATSMAN) has to hit {tot_score+1} in order to win")
+    
+    comp_batsman = random.randint(1,6)
+    user = int(input("Bowler bowls: "))
+    print(f"Batsman hit {comp_batsman} ")
+    to_win = tot_score+1
+
+    while user>0 and user<7 and to_win>0:
+        to_win = to_win - comp_batsman
+        print(f"To Win :{to_win}")
+        user = int(input("Bowler bowls: "))
+        comp_batsman = random.randint(1,6)
+        print(f"Batsman hit {comp_batsman}")
+        
+        if(to_win == 0):
+            print("The MATCH IS A DRAW")
+            break
+        elif(to_win < 0):
+            print("The COMPUTER WINS")
+            break
+        
+    if to_win>0:
+        print("THE USER HAS WON")
+##################################################################
+# the USER chooses to BOWL and the COMPUTER is BATSMAN
+# FIRST INNINGS    
+
+if (toss_win == 1 and batorbowl == 2) or (toss_win == 2 and batorbowl == 1): #user won and chose to BOWL
+    print("FIRST INNINGS")
+    tot_score = 0
+    user = int(input("Bowler bowls: "))
+    comp_batsman = random.randint(1,6)
+    print(f"Batsman hit: {comp_batsman}")
+    
+    while(comp_batsman != user) and comp_batsman>0 and comp_batsman<7:
+        tot_score = tot_score + comp_batsman
+        print(tot_score)
+        user = int(input("Bowler bowls: "))
+        comp_batsman = random.randint(1,6)
+        print(f"Batsman hit: {comp_batsman}")
+    else:
+        print("AAAAAND THE BATSMAN IS OUT.")
+        print(f"The batsman(comp) is out! First Innings Score is {tot_score}")
+
+# SECOND INNINGS
+    print("SECOND INNINGS")
+    print(f"The User(BATSMAN) has to hit {tot_score+1} in order to win")
+
+    user = int(input("Batsman hits: "))
+    comp_bowler = random.randint(1,6)
+    to_win = tot_score+1
+
+    while user>0 and user<7 and to_win>0:
+        to_win = to_win - user
+        print(f"To Win :{to_win}")
+        user = int(input("Batsman hits: "))
+        comp_bowler = random.randint(1,6)
+        print(f"Batsman hit {user}")
+        
+        if(to_win == 0):
+            print("The MATCH IS A DRAW")
+            break
+        elif(to_win < 0):
+            print("The USER WINS")
+            break
+    if to_win >0:
+        print("THE COMPUTER HAS WON")
+#############################################################################
